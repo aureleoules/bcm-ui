@@ -4,6 +4,12 @@
     import Popup from '$lib/components/Popup.svelte';
     export let data: any; 
     import { openModal } from 'svelte-modals'
+  import { onMount } from 'svelte';
+
+    let token = undefined;
+    onMount(async () => {
+        token = localStorage.getItem('token');
+    });
     
     async function update_status(id, status) {
         if(confirm("Are you sure you want to update the status of this mutation?")) {
@@ -11,7 +17,8 @@
                 method: 'POST',
                 body: JSON.stringify(status),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': token
                 }
             });
             const resp = await r.text();
@@ -24,9 +31,22 @@
         openModal(Popup, { patch })
     }
 
+    function setToken() {
+        const token = prompt("Please enter the token", "");
+        if (token != null) {
+            localStorage.setItem('token', token);
+            window.location.reload();
+        }
+    }
+
 </script>
 
 <h1>Bitcoin Core Mutations</h1> 
+<button on:click={setToken}>Set Token</button> {#if token}
+Authenticated
+{:else}
+Not Authenticated
+{/if}
 
 {#each ["NotKilled", "Running", "Pending", "Killed", "Ignored"] as status}
     <h2>{status} ({data.mutations.filter(mutation => mutation.status === status).length})</h2>
