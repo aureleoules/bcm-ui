@@ -15,7 +15,10 @@
         if(confirm("Are you sure you want to update the status of this mutation?")) {
             const r = await fetch(`${PUBLIC_SERVER_URL}/mutations/${id}`, {
                 method: 'POST',
-                body: JSON.stringify(status),
+                body: JSON.stringify({
+                    mutation_id: id,
+                    status: status
+                }),
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': token
