@@ -61,6 +61,7 @@ Not Authenticated
                 <th>Branch</th>
                 <th>PR Number</th>
                 <th>Patch</th>
+                <th>Logs</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -80,6 +81,9 @@ Not Authenticated
                         }}>
                             Patch
                         </button>
+                    </td>
+                    <td>
+                        <a target="_blank" href={"/logs/" + mutation.id}>Logs</a>
                     </td>
                     <td>
                         <button on:click={() => update_status(mutation.id, "Pending")}>Rerun</button>
