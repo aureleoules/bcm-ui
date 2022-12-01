@@ -16,6 +16,14 @@
     }
 
     let search = "";
+
+    function getMutationsOfType(type: string) {
+        if (data.mutations[type] == undefined) {
+            return [];
+        }
+
+        return data.mutations[type];
+    }
 </script>
 
 <div>
@@ -30,7 +38,7 @@
 
 <input type="text" placeholder="Search file..." bind:value={search} />
 {#each ["NotKilled", "Running", "Pending", "Killed", "Ignored"] as status}
-    <h2>{status} ({data.mutations[status].length})</h2>
+    <h2>{status} ({getMutationsOfType(status).length})</h2>
     <table>
         <thead>
             <tr>
@@ -45,7 +53,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each data.mutations[status] as mutation}
+            {#each getMutationsOfType(status) as mutation}
                 {#if mutation.file.includes(search)}
                     <tr>
                         <td>
