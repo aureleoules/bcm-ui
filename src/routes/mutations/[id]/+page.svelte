@@ -4,6 +4,7 @@
     const mutation = data.mutation;
 
     async function update_status(id, status) {
+        const token = localStorage.getItem('token');
         if(confirm("Are you sure you want to update the status of this mutation?")) {
             const r = await fetch(`${PUBLIC_SERVER_URL}/mutations/${id}`, {
                 method: 'POST',
