@@ -51,7 +51,7 @@ Not Authenticated
 {/if}
 
 {#each ["NotKilled", "Running", "Pending", "Killed", "Ignored"] as status}
-    <h2>{status} ({data.mutations.filter(mutation => mutation.status === status).length})</h2>
+    <h2>{status} ({data.mutations[status].length})</h2>
     <table>
         <thead>
             <tr>
@@ -68,7 +68,7 @@ Not Authenticated
             </tr>
         </thead>
         <tbody>
-            {#each data.mutations.filter(mutation => mutation.status === status) as mutation}
+            {#each data.mutations[status] as mutation}
                 <tr>
                     <td>{mutation.id}</td>
                     <td>{mutation.status}</td>
