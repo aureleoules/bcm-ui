@@ -4,30 +4,13 @@
     import Popup from '$lib/components/Popup.svelte';
     export let data: any; 
     import { openModal } from 'svelte-modals'
-  import { onMount } from 'svelte';
+    import { onMount } from 'svelte';
 
     let token = undefined;
     onMount(async () => {
         token = localStorage.getItem('token');
     });
     
-    async function update_status(id, status) {
-        if(confirm("Are you sure you want to update the status of this mutation?")) {
-            const r = await fetch(`${PUBLIC_SERVER_URL}/mutations/${id}`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    mutation_id: id,
-                    status: status
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                }
-            });
-            const resp = await r.text();
-            window.location.reload();
-        }
-    }
 
     function openPatch(patch: String) {
         openModal(Popup, { patch })
@@ -63,33 +46,21 @@ Not Authenticated
                 <th>Branch</th>
                 <th>PR Number</th>
                 <th>Patch</th>
-                <th>Logs</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             {#each data.mutations[status] as mutation}
                 <tr>
-                    <td>{mutation.id}</td>
+                    <td>
+                        <a target="_blank" href="/mutations/{mutation.id}">{mutation.id}</a>
                     <td>{mutation.status}</td>
                     <td>{mutation.start_time ? new Date(mutation.start_time * 1000).toLocaleString() : ""}</td>
                     <td>{mutation.end_time ? new Date(mutation.end_time * 1000).toLocaleString() : ""}</td>
                     <td>{mutation.file}</td>
                     <td>{mutation.branch}</td>
                     <td>{mutation.pr_number ? mutation.pr_number : "N/A"}</td>
-                    <td>
-                        <button on:click={() => {
-                            openPatch(mutation.patch);
-                        }}>
-                            Patch
-                        </button>
-                    </td>
-                    <td>
-                        <a target="_blank" href={"/logs/" + mutation.id}>Logs</a>
-                    </td>
-                    <td>
-                        <button on:click={() => update_status(mutation.id, "Pending")}>Rerun</button>
-                        <button on:click={() => update_status(mutation.id, "Ignored")}>Ignore</button>
+                    <td style="overflow: scroll">
+                        <pre><code>{mutation.patch.trim()}</code></pre>
                     </td>
                 </tr>
             {/each}
@@ -177,8 +148,14 @@ Not Authenticated
         &:focus {
             outline: none;
         }
+    }
 
-        
+    td {
+        overflow: scroll;
+        pre {
+            margin: 0;
+            overflow: scroll;
+        }
     }
 
 </style> 

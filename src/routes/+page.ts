@@ -20,8 +20,6 @@ export async function load() {
             return acc;
         }, {});
 
-        
-
         return {
             mutations: mutationPerStatus
         };
