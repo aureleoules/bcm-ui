@@ -64,11 +64,7 @@
 <button on:click={() => update_status(mutation.id, "Pending")}>Rerun</button>
 <button on:click={() => update_status(mutation.id, "Ignored")}>Ignore</button>
 <p>Patch:</p>
-<pre>
-    <code>
-{mutation.patch}
-    </code>
-</pre>
+<pre><code>{mutation.patch}</code></pre>
 
 <p>Logs:</p>
 <h3>stdout</h3>

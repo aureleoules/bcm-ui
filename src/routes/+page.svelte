@@ -1,20 +1,11 @@
 <script lang="ts">
-    import { PUBLIC_SERVER_URL } from '$env/static/public'
-    import { Modals, closeModal } from 'svelte-modals'
-    import Popup from '$lib/components/Popup.svelte';
     export let data: any; 
-    import { openModal } from 'svelte-modals'
     import { onMount } from 'svelte';
 
     let token = undefined;
     onMount(async () => {
         token = localStorage.getItem('token');
     });
-    
-
-    function openPatch(patch: String) {
-        openModal(Popup, { patch })
-    }
 
     function setToken() {
         const token = prompt("Please enter the token", "");
@@ -23,7 +14,6 @@
             window.location.reload();
         }
     }
-
 </script>
 
 <h1>Bitcoin Core Mutations</h1> 
@@ -67,15 +57,6 @@ Not Authenticated
         </tbody>
     </table>
 {/each}
-
-<Modals>
-  <div
-    slot="backdrop"
-    class="backdrop"
-    on:click={closeModal}
-  />
-</Modals>
-
 
 <style lang="scss">
     table {
