@@ -5,8 +5,6 @@ export async function load({params}) {
         const data = await fetch(`${PUBLIC_SERVER_URL}/mutations/${params.id}`)
         const mutation = await data.json();
 
-        console.log(mutation);
-
         return {
             mutation
         };

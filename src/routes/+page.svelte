@@ -26,7 +26,6 @@
             });
             const resp = await r.text();
             window.location.reload();
-            console.log(resp);
         }
     }
 
