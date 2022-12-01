@@ -14,15 +14,21 @@
             window.location.reload();
         }
     }
+
+    let search = "";
 </script>
 
-<h1>Bitcoin Core Mutations</h1> 
-<button on:click={setToken}>Set Token</button> {#if token}
-Authenticated
-{:else}
-Not Authenticated
-{/if}
+<div>
+    <h1>Bitcoin Core Mutations</h1> 
+    <button on:click={setToken}>Set Token</button> {#if token}
+    Authenticated
+    {:else}
+    Not Authenticated
+    {/if}
 
+</div>
+
+<input type="text" placeholder="Search file..." bind:value={search} />
 {#each ["NotKilled", "Running", "Pending", "Killed", "Ignored"] as status}
     <h2>{status} ({data.mutations[status].length})</h2>
     <table>
@@ -40,19 +46,21 @@ Not Authenticated
         </thead>
         <tbody>
             {#each data.mutations[status] as mutation}
-                <tr>
-                    <td>
-                        <a target="_blank" href="/mutations/{mutation.id}">{mutation.id}</a>
-                    <td>{mutation.status}</td>
-                    <td>{mutation.start_time ? new Date(mutation.start_time * 1000).toLocaleString() : ""}</td>
-                    <td>{mutation.end_time ? new Date(mutation.end_time * 1000).toLocaleString() : ""}</td>
-                    <td>{mutation.file}</td>
-                    <td>{mutation.branch}</td>
-                    <td>{mutation.pr_number ? mutation.pr_number : "N/A"}</td>
-                    <td style="overflow: scroll">
-                        <pre><code>{mutation.patch.trim()}</code></pre>
-                    </td>
-                </tr>
+                {#if mutation.file.includes(search)}
+                    <tr>
+                        <td>
+                            <a target="_blank" href="/mutations/{mutation.id}">{mutation.id}</a>
+                        <td>{mutation.status}</td>
+                        <td>{mutation.start_time ? new Date(mutation.start_time * 1000).toLocaleString() : ""}</td>
+                        <td>{mutation.end_time ? new Date(mutation.end_time * 1000).toLocaleString() : ""}</td>
+                        <td>{mutation.file}</td>
+                        <td>{mutation.branch}</td>
+                        <td>{mutation.pr_number ? mutation.pr_number : "N/A"}</td>
+                        <td style="overflow: scroll">
+                            <pre><code>{mutation.patch.trim()}</code></pre>
+                        </td>
+                    </tr>
+                {/if}
             {/each}
         </tbody>
     </table>
@@ -136,6 +144,19 @@ Not Authenticated
         pre {
             margin: 0;
             overflow: scroll;
+        }
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        &:focus {
+            border: 2px solid #555;
         }
     }
 
