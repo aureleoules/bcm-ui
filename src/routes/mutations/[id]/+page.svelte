@@ -23,6 +23,8 @@
     }
 </script>
 
+<h1 class="text-5xl">test</h1>
+
 <table>
     <thead>
         <tr>
