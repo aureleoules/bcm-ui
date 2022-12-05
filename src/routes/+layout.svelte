@@ -8,6 +8,10 @@
   } from "flowbite-svelte";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
+  import { get } from "svelte/store";
+
+  export let data;
+  const lengths = data.lengths;
 
   let spanClass = "flex-1 ml-3 whitespace-nowrap";
   $: activeUrl = $page.url.pathname;
@@ -40,12 +44,12 @@
               /></svg
             >
           </svelte:fragment>
-          <!-- <svelte:fragment slot="subtext">
+          <svelte:fragment slot="subtext">
             <span
               class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-red-900 bg-red-400 rounded-full dark:bg-red-900 dark:text-red-200"
-              >3</span
+              >{lengths.get('NotKilled')}</span
             >
-          </svelte:fragment> -->
+          </svelte:fragment>
         </SidebarItem>
         <SidebarItem on:click={() => window.location = "/status/Running"} label="Running" {spanClass} active={activeUrl === "/status/Running"}>
           <svelte:fragment slot="icon">
@@ -83,12 +87,12 @@
               /></svg
             >
           </svelte:fragment>
-          <!-- <svelte:fragment slot="subtext">
+          <svelte:fragment slot="subtext">
             <span
               class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-orange-600 bg-orange-200 rounded-full dark:bg-orange-900 dark:text-orange-200"
-              >3</span
+              >{lengths.get('Running')}</span
             >
-          </svelte:fragment> -->
+          </svelte:fragment>
         </SidebarItem>
         <SidebarItem on:click={() => window.location = "/status/Pending"} label="Pending" {spanClass} active={activeUrl === "/status/Pending"}>
           <svelte:fragment slot="icon">
@@ -108,12 +112,12 @@
               /></svg
             >
           </svelte:fragment>
-          <!-- <svelte:fragment slot="subtext">
+          <svelte:fragment slot="subtext">
             <span
               class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200"
-              >3</span
+              >{lengths.get('Pending')}</span
             >
-          </svelte:fragment> -->
+          </svelte:fragment>
         </SidebarItem>
         <SidebarItem on:click={() => window.location = "/status/Killed"} label="Killed" {spanClass} active={activeUrl === "/status/Killed"}>
           <svelte:fragment slot="icon">
@@ -133,12 +137,12 @@
               /></svg
             >
           </svelte:fragment>
-          <!-- <svelte:fragment slot="subtext">
+          <svelte:fragment slot="subtext">
             <span
               class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-green-600 bg-green-200 rounded-full dark:bg-green-900 dark:text-green-200"
-              >3</span
+              >{lengths.get('Killed')}</span
             >
-          </svelte:fragment> -->
+          </svelte:fragment>
         </SidebarItem>
         <SidebarItem on:click={() => window.location = "/status/Ignored"} label="Fixed" {spanClass} active={activeUrl === "/status/Ignored"}>
           <svelte:fragment slot="icon">
@@ -156,12 +160,12 @@
               ><polyline points="20 6 9 17 4 12" /></svg
             >
           </svelte:fragment>
-          <!-- <svelte:fragment slot="subtext">
+          <svelte:fragment slot="subtext">
             <span
               class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-green-600 bg-green-200 rounded-full dark:bg-green-900 dark:text-green-200"
-              >3</span
+              >{lengths.get('Ignored')}</span
             >
-          </svelte:fragment> -->
+          </svelte:fragment>
         </SidebarItem>
       </SidebarGroup>
     </SidebarWrapper>

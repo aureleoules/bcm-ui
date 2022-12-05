@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PUBLIC_SERVER_URL } from '$env/static/public'
+    import { PUBLIC_SERVER_URL, PUBLIC_GITHUB_MUTATION_REPO } from '$env/static/public'
     export let data;
     const mutation = data.mutation;
 
@@ -22,8 +22,6 @@
         }
     }
 </script>
-
-<h1 class="text-5xl">test</h1>
 
 <table>
     <thead>
@@ -61,6 +59,10 @@
             <td>PR Number</td>
             <td>{mutation.pr_number ? mutation.pr_number : "N/A"}</td>
         </tr>
+        <tr>
+            <td>GitHub link</td>
+            <td><a class="text-blue-500" target="_blank" rel="noreferrer" href="{PUBLIC_GITHUB_MUTATION_REPO}/compare/master...mutation-{mutation.id}">GitHub link</a></td>
+        </tr>
     </tbody>
 </table>
 
@@ -68,20 +70,6 @@
 <button on:click={() => update_status(mutation.id, "Ignored")}>Ignore</button>
 <p>Patch:</p>
 <pre><code>{mutation.patch}</code></pre>
-
-<p>Logs:</p>
-<h3>stdout</h3>
-<pre>
-    <code>
-{mutation.stdout}
-    </code>
-</pre>
-<h3>stderr</h3>
-<pre>
-    <code>  
-{mutation.stderr}
-    </code>
-</pre>
 
 <style lang="scss">
     table {

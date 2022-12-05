@@ -3,7 +3,7 @@ import { PUBLIC_SERVER_URL } from '$env/static/public'
 
 export async function load({fetch, params}) {
     try {
-        const data = await fetch(`${PUBLIC_SERVER_URL}/mutations`)
+        const data = await fetch(`${PUBLIC_SERVER_URL}/mutations?status=${params.type}`)
         const mutations = await data.json();
 
         // sort mutations by date
@@ -12,11 +12,9 @@ export async function load({fetch, params}) {
         });
 
 
-        const mutationsFiltered = mutations.filter(mutation => mutation.status === params.type);
-
         return {
-            mutations: mutationsFiltered,
-            length: mutationsFiltered.length,
+            mutations: mutations,
+            length: mutations.length,
             type: params.type
         };
     } catch (error) {
