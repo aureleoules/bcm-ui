@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PUBLIC_SERVER_URL, PUBLIC_GITHUB_MUTATION_REPO } from '$env/static/public'
+    import { PUBLIC_SERVER_URL} from '$env/static/public'
     export let data;
     const mutation = data.mutation;
 
@@ -58,10 +58,6 @@
         <tr>
             <td>PR Number</td>
             <td>{mutation.pr_number ? mutation.pr_number : "N/A"}</td>
-        </tr>
-        <tr>
-            <td>GitHub link</td>
-            <td><a class="text-blue-500" target="_blank" rel="noreferrer" href="{PUBLIC_GITHUB_MUTATION_REPO}/compare/master...mutation-{mutation.id}">GitHub link</a></td>
         </tr>
     </tbody>
 </table>

@@ -13,7 +13,6 @@ export async function load({fetch}) {
             lengthMap.set(type, mutations.length);
         }));
 
-        console.log(lengthMap);
         return {
             lengths: lengthMap
         };

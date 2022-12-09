@@ -29,7 +29,7 @@
     {#each data.mutations as mutation}
       <TableBodyRow class="border-b dark:bg-gray-800 dark:border-gray-700">
         <TableBodyCell>
-          <A class="" target="_blank" href="/mutations/{mutation.id}">{mutation.id.substr(0, 10)}</A>
+          <A class="" target="_blank" href="/mutations/{mutation.id}">{mutation.id}</A>
         </TableBodyCell>
         <TableBodyCell>{mutation.branch}</TableBodyCell>
         <TableBodyCell style="overflow: scroll">

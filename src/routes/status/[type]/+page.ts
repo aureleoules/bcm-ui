@@ -4,6 +4,7 @@ import { PUBLIC_SERVER_URL } from '$env/static/public'
 export async function load({fetch, params}) {
     try {
         const data = await fetch(`${PUBLIC_SERVER_URL}/mutations?status=${params.type}`)
+
         const mutations = await data.json();
 
         // sort mutations by date
