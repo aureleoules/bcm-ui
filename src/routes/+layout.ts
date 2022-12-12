@@ -7,7 +7,7 @@ export async function load({fetch}) {
 
     try {
         await Promise.all(status.map(async (type: string) => {
-            const data = await fetch(`${PUBLIC_SERVER_URL}/mutations?status=${type}`)
+            const data = await fetch(`${PUBLIC_SERVER_URL}/mutations/${type}`)
             const mutations = await data.json();
 
             lengthMap.set(type, mutations.length);

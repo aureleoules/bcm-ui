@@ -1,23 +1,30 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { A, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
+  import { PUBLIC_SERVER_URL } from '$env/static/public';
+    import { A, Label, Select, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
 
     export let data: any; 
-    let token: string = '';
-    onMount(async () => {
-        token = localStorage.getItem('token') || '';
-    });
+    let mutations = data.mutations;
+    let file = '';
 
-    function setToken() {
-        const token = prompt("Please enter the token", "");
-        if (token != null) {
-            localStorage.setItem('token', token);
-            window.location.reload();
-        }
+    async function mutationsByFile(file: string) {
+        const resp = await fetch(`${PUBLIC_SERVER_URL}/mutations/${data.type}?file=${file}`);
+        mutations = await resp.json();
+    }
+
+    $: if (file) {
+        mutationsByFile(file);
     }
 </script>
 
-<h1 class="text-2xl font-bold">{data.type} ({data.length})</h1>
+<Label>Select a file
+  <Select class="mt-2" items={data.files.sort().map(f => (
+    {
+      value: f,
+      name: f
+    }
+  ))} bind:value={file} />
+</Label>
+<h1 class="text-2xl font-bold">{data.type} ({mutations.length})</h1>
 
 <Table striped={true} hoverable={true}>
   <TableHead>
@@ -26,7 +33,7 @@
     <TableHeadCell>Patch</TableHeadCell>
 </TableHead>
 <TableBody>
-    {#each data.mutations as mutation}
+    {#each mutations as mutation}
       <TableBodyRow class="border-b dark:bg-gray-800 dark:border-gray-700">
         <TableBodyCell>
           <A class="" target="_blank" href="/mutations/{mutation.id}">{mutation.id}</A>

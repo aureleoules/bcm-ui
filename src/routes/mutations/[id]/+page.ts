@@ -2,7 +2,7 @@ import { PUBLIC_SERVER_URL } from '$env/static/public'
 
 export async function load({fetch, params}) {
     try {
-        const data = await fetch(`${PUBLIC_SERVER_URL}/mutations/${params.id}`)
+        const data = await fetch(`${PUBLIC_SERVER_URL}/mutation/${params.id}`)
         const mutation = await data.json();
 
         return {
