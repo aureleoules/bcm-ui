@@ -67,6 +67,17 @@
 <p>Patch:</p>
 <pre><code>{mutation.patch}</code></pre>
 
+
+<p>stdout</p>
+<small>
+<pre><code>{mutation.stdout}</code></pre>
+</small>
+<p>stderr</p>
+<small>
+<pre><code>{mutation.stderr}</code></pre>
+</small>
+
+
 <style lang="scss">
     table {
         width: 100%;
