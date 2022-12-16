@@ -29,7 +29,7 @@
 <Table striped={true} hoverable={true}>
   <TableHead>
     <TableHeadCell>ID</TableHeadCell>
-    <TableHeadCell>Branch</TableHeadCell>
+    <TableHeadCell>Branch/PR</TableHeadCell>
     <TableHeadCell>Patch</TableHeadCell>
 </TableHead>
 <TableBody>
@@ -38,7 +38,13 @@
         <TableBodyCell>
           <A class="" target="_blank" href="/mutations/{mutation.id}">{mutation.id}</A>
         </TableBodyCell>
-        <TableBodyCell>{mutation.branch}</TableBodyCell>
+        <TableBodyCell>
+          {#if mutation.pr_number}
+            <a target="_blank" rel="noreferrer" href={`https://github.com/bitcoin/bitcoin/pull/${mutation.pr_number}`}>#{mutation.pr_number}</a>
+          {:else}
+            {mutation.branch}
+          {/if}
+        </TableBodyCell>
         <TableBodyCell style="overflow: scroll">
             <small><pre><code>{mutation.file}
 
